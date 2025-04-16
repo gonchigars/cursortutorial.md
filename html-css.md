@@ -955,7 +955,6 @@ a:active {
 }
 
 ```css```
-I'll explain the CSS code by relating it to the provided HTML structure, showing how each part affects the page layout and appearance using text diagrams.
 
 ## CSS Reset and Base Styles
 
