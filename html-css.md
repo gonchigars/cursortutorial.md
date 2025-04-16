@@ -955,197 +955,464 @@ a:active {
 }
 
 ```css```
+I'll explain the CSS code by relating it to the provided HTML structure, showing how each part affects the page layout and appearance using text diagrams.
 
-## Circle 1: High-Level Structure
+## CSS Reset and Base Styles
 
-```
-┌─────────────────────────────────────────┐
-│               HEADER                    │
-├───────────────┬─────────────────────────┤
-│               │                         │
-│               │                         │
-│    SIDEBAR    │       PRODUCTS          │
-│  (Filters)    │        GRID             │
-│               │                         │
-│               │                         │
-├───────────────┴─────────────────────────┤
-│               FOOTER                    │
-└─────────────────────────────────────────┘
+```css
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 ```
 
-This CSS organizes an e-commerce website with a responsive grid layout, defining styling for all elements through a consistent design system.
+**What/Why**: Resets all elements to have no margins or padding, and uses box-sizing: border-box so padding and borders don't increase element size.
 
-## Circle 2: CSS Foundation
-
+**How/Where**:
 ```
-CSS Variables
-┌─────────────────────────────────────┐
-│ :root {                             │
-│  ┌─────────────┐ ┌───────────────┐  │
-│  │  Colors     │ │  Typography   │  │
-│  └─────────────┘ └───────────────┘  │
-│  ┌─────────────┐ ┌───────────────┐  │
-│  │  Spacing    │ │  Shadows      │  │
-│  └─────────────┘ └───────────────┘  │
-│ }                                   │
-└─────────────────────────────────────┘
+Before Reset:       After Reset:
+┌───────────┐      ┌─────────┐
+│   Element │      │Element  │
+│           │  →   │         │
+│  (padded) │      │(no pad) │
+└───────────┘      └─────────┘
 ```
+Applied to every element in the HTML, ensuring consistent sizing behavior.
 
-The CSS variables create a consistent visual language that's applied throughout the site, making it easy to maintain a cohesive look and feel.
+## CSS Variables (Custom Properties)
 
-## Circle 3: Layout Structure
-
-```
-Desktop Layout                 Mobile Layout
-┌────────┬─────────┐           ┌─────────────┐
-│ HEADER │ HEADER  │           │   HEADER    │
-├────────┼─────────┤           ├─────────────┤
-│        │         │           │             │
-│SIDEBAR │PRODUCTS │           │  PRODUCTS   │
-│        │         │           │             │
-├────────┴─────────┤           ├─────────────┤
-│     FOOTER       │           │   FOOTER    │
-└──────────────────┘           └─────────────┘
+```css
+:root {
+  /* Color Scheme */
+  --color-primary: #2563eb;
+  /* ...more colors, typography, spacing, etc. */
+}
 ```
 
-The CSS uses grid layout to create a responsive page structure that adapts to different screen sizes, collapsing to a single column on mobile devices.
+**What/Why**: Defines reusable values for the entire document in a single place, making the design system consistent and easy to modify.
 
-## Circle 4: Header Component
-
+**How/Where**:
 ```
-┌─────────────────────────────────────────────────────┐
-│ ┌─────────┐    ┌───────────────────┐   ┌─────────┐  │
-│ │  LOGO   │    │     NAV LINKS     │   │ ACTIONS │  │
-│ └─────────┘    └───────────────────┘   └─────────┘  │
-└─────────────────────────────────────────────────────┘
-                      │
-         ┌────────────┴───────────┐
-         │ On mobile:             │
-         │ ┌─────────────────┐    │
-         │ │      LOGO       │    │
-         │ ├─────────────────┤    │
-         │ │    NAV LINKS    │    │
-         │ ├─────────────────┤    │
-         │ │     ACTIONS     │    │
-         │ └─────────────────┘    │
-         └────────────────────────┘
+┌────────────────────────────────────────┐
+│ :root {                                │
+│   ┌─────────┐  ┌────────┐  ┌────────┐  │
+│   │ Colors  │  │ Fonts  │  │Spacing │  │
+│   └─────────┘  └────────┘  └────────┘  │
+│ }                                      │
+└───────────────┬────────────────────────┘
+                │
+                ▼
+      Used throughout the document
+      for consistent styling
 ```
+These variables are referenced throughout the CSS using `var(--variable-name)`.
 
-The header uses flexbox to arrange elements horizontally, with responsive behavior that stacks components vertically on smaller screens.
+## Body Base Styles
 
-## Circle 5: Sidebar Component
-
-```
-┌─────────────────────────┐
-│   FILTERS               │
-│ ┌─────────────────────┐ │
-│ │ Categories          │ │
-│ │ □ Category 1        │ │
-│ │ □ Category 2        │ │
-│ │ □ Category 3        │ │
-│ └─────────────────────┘ │
-│ ┌─────────────────────┐ │
-│ │ Price Range         │ │
-│ │ [==========|==]     │ │
-│ │ $0         $1000    │ │
-│ └─────────────────────┘ │
-│ ┌─────────────────────┐ │
-│ │ Ratings             │ │
-│ │ □ ★★★★★            │ │
-│ │ □ ★★★★☆            │ │
-│ │ □ ★★★☆☆            │ │
-│ └─────────────────────┘ │
-└─────────────────────────┘
+```css
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-800);
+  background-color: var(--color-gray-100);
+}
 ```
 
-The sidebar contains filter groups with interactive elements, styled as a card with consistent spacing and typography.
+**What/Why**: Sets default styling for the entire document.
 
-## Circle 6: Products Grid
-
+**How/Where**:
 ```
-┌───────────┐ ┌───────────┐ ┌───────────┐
-│ ┌───────┐ │ │ ┌───────┐ │ │ ┌───────┐ │
-│ │ IMAGE │ │ │ │ IMAGE │ │ │ │ IMAGE │ │
-│ └───────┘ │ │ └───────┘ │ │ └───────┘ │
-│ Product A │ │ Product B │ │ Product C │
-│ $XX.XX    │ │ $XX.XX    │ │ $XX.XX    │
-│ ★★★★☆    │ │ ★★★★★    │ │ ★★★☆☆    │
-│           │ │           │ │           │
-│ [ADD TO CART] │ [ADD TO CART] │ [ADD TO CART] │
-└───────────┘ └───────────┘ └───────────┘
-
-Responsive Behavior:
-Desktop: 3 columns
-Tablet: 2 columns
-Mobile: 1 column
+┌──────────────────────────────────────┐
+│                                      │
+│  <body> element (entire page)        │
+│  - Font family: "Inter" or fallbacks │
+│  - Font size: 1rem (16px)            │
+│  - Line height: 1.5                  │
+│  - Text color: Dark gray             │
+│  - Background: Light gray            │
+│                                      │
+└──────────────────────────────────────┘
 ```
+Applied to the `<body>` tag, affecting all content within the page.
 
-Products are displayed in a responsive grid that adjusts from 3 columns to 1 based on screen size, with each product card featuring consistent styling and hover effects.
+## Layout Grid
 
-## Circle 7: Footer Component
+```css
+.main {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidebar products"
+    "footer footer";
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  gap: var(--spacing-6);
+  padding: var(--spacing-6);
+}
 
-```
-┌───────────────────────────────────────────────────────────┐
-│ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐   │
-│ │ COMPANY   │ │ HELP      │ │ CONTACT   │ │ NEWSLETTER│   │
-│ │ About     │ │ FAQ       │ │ Address   │ │ ┌───────┐ │   │
-│ │ Careers   │ │ Shipping  │ │ Phone     │ │ │ Email │ │   │
-│ │ Blog      │ │ Returns   │ │ Email     │ │ └───────┘ │   │
-│ │           │ │           │ │           │ │ [SUBSCRIBE]│   │
-│ │ SOCIAL:   │ │           │ │           │ │           │   │
-│ │ ○ ○ ○ ○   │ │           │ │           │ │           │   │
-│ └───────────┘ └───────────┘ └───────────┘ └───────────┘   │
-└───────────────────────────────────────────────────────────┘
-```
-
-The footer is organized in a multi-column grid that collapses on smaller screens, featuring navigation links, contact information, social media links, and a newsletter signup.
-
-## Circle 8: Interactive States
-
-```
-Normal Button:   [      Button      ]
-Hover:           [      Button      ] + color change
-Focus:           [      Button      ] + outline
-Active:          [     Button     ] + slight scale down
-
-Normal Link:     Link Text
-Hover:           Link Text (color change)
-Focus:           Link Text + visible outline
-
-Product Card Normal:
-┌───────────┐
-│ Product   │
-└───────────┘
-
-Product Card Hover:
-    ┌───────────┐
-    │ Product   │
-    └───────────┘
- + shadow + lifted up
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.products { grid-area: products; }
+.footer { grid-area: footer; }
 ```
 
-The CSS defines consistent interactive states for all clickable elements, improving usability and accessibility with visual feedback.
+**What/Why**: Creates the overall page layout using CSS Grid with named areas.
 
-## Circle 9: Accessibility & Best Practices
-
+**How/Where**:
 ```
-Focus Indicators:
-┌──────────────────────┐   ┌──────────────────────┐
-│                      │   │                      │
-│   Unfocused Input    │   │    Focused Input     │
-│                      │   │                      │
-└──────────────────────┘   └──────────────────────┘
-                             ↑
-                       2px blue outline
+Layout applied to <main class="main">:
 
-Responsive Behavior:
-     ┌─────────┐                      ┌───┐
-     │         │   screen width       │   │
-     │         │   ───────────>       │   │
-     │         │                      │   │
-     └─────────┘                      └───┘
-     Layout adapts                  Content
-     dynamically                    reflows
+┌───────────────────────────────────┐
+│              HEADER               │ <- <header class="header">
+├────────────────┬──────────────────┤
+│                │                  │
+│                │                  │
+│                │                  │
+│    SIDEBAR     │    PRODUCTS      │ <- <aside class="sidebar">
+│    (300px)     │    (flexible)    │    <section class="products">
+│                │                  │
+│                │                  │
+│                │                  │
+├────────────────┴──────────────────┤
+│              FOOTER               │ <- <footer class="footer">
+└───────────────────────────────────┘
+
+With 1.5rem (var(--spacing-6)) gaps between areas
+```
+Applied to the `<main>` element and its child sections.
+
+## Header Styles
+
+```css
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-white);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Logo, navigation, and actions styling */
 ```
 
-The stylesheet incorporates accessibility best practices like visible focus states, responsive text sizing, and appropriate color contrast ratios.
+**What/Why**: Styles the header with a flex layout to position logo, navigation, and action buttons.
+
+**How/Where**:
+```
+Applied to <div class="header__container">:
+
+┌────────────────────────────────────────────────────┐
+│                                                    │
+│  ┌──────┐   ┌─────────────────────┐   ┌────────┐  │
+│  │ LOGO │   │  NAV LINKS (flex)   │   │ACTIONS │  │
+│  └──────┘   └─────────────────────┘   └────────┘  │
+│                                                    │
+└────────────────────────────────────────────────────┘
+
+With white background, rounded corners, and subtle shadow
+```
+Applied to the container within the header with items distributed across space.
+
+## Navigation Styling
+
+```css
+.header__nav-list {
+  display: flex;
+  gap: var(--spacing-4);
+  list-style: none;
+}
+
+.header__nav-link {
+  text-decoration: none;
+  color: var(--color-gray-700);
+  /* more styling */
+}
+
+.header__nav-link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-gray-100);
+}
+```
+
+**What/Why**: Creates a horizontal navigation menu with hover effects.
+
+**How/Where**:
+```
+Applied to <ul class="header__nav-list">:
+
+┌───────────────────────────────────────────────┐
+│                                               │
+│  Home  Products  Categories  About  Contact   │
+│                                               │
+└───────────────────────────────────────────────┘
+
+Normal link:   [     Home     ]  (dark gray)
+Hover state:   [     Home     ]  (blue text with light gray background)
+```
+Applied to the navigation list and its link items.
+
+## Action Buttons
+
+```css
+.header__actions {
+  display: flex;
+  gap: var(--spacing-4);
+  align-items: center;
+}
+
+.header__cart { /* styling */ }
+.header__account { /* styling */ }
+/* Hover states */
+```
+
+**What/Why**: Styles the cart and account buttons in the header.
+
+**How/Where**:
+```
+Applied to <div class="header__actions">:
+
+┌─────────────────────────────┐
+│                             │
+│  [🛒 0]    [Login/Account]  │
+│  gray      blue background  │
+│                             │
+└─────────────────────────────┘
+
+Cart hover:  Slightly darker gray
+Account hover: Darker blue
+```
+Applied to the action buttons in the header's right section.
+
+## Sidebar Filter Styles
+
+```css
+.sidebar__filters {
+  background-color: var(--color-white);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Filter groups and elements */
+```
+
+**What/Why**: Creates a styled container for filter options with different categories.
+
+**How/Where**:
+```
+Applied to <section class="sidebar__filters">:
+
+┌─────────────────────────────┐
+│         FILTERS             │
+│ ┌───────────────────────┐   │
+│ │ Categories            │   │
+│ │ □ Electronics         │   │
+│ │ □ Clothing            │   │
+│ │ □ Home & Kitchen      │   │
+│ └───────────────────────┘   │
+│ ┌───────────────────────┐   │
+│ │ Price Range           │   │
+│ │ [===========|===]     │   │
+│ │ $0           $1000    │   │
+│ └───────────────────────┘   │
+│ ┌───────────────────────┐   │
+│ │ Rating                │   │
+│ │ ○ ★★★★★              │   │
+│ │ ○ ★★★★☆              │   │
+│ │ ○ ★★★☆☆              │   │
+│ └───────────────────────┘   │
+└─────────────────────────────┘
+
+White background with rounded corners and shadow
+```
+Applied to the sidebar filter section and its components.
+
+## Products Grid
+
+```css
+.products__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-6);
+}
+
+.product-card { /* styling */ }
+/* Product card elements */
+```
+
+**What/Why**: Creates a responsive grid of product cards, 3 columns on desktop.
+
+**How/Where**:
+```
+Applied to <div class="products__grid">:
+
+┌─────────┐ ┌─────────┐ ┌─────────┐
+│ Product │ │ Product │ │ Product │
+│    1    │ │    2    │ │    3    │
+└─────────┘ └─────────┘ └─────────┘
+┌─────────┐ ┌─────────┐ ┌─────────┐
+│ Product │ │ Product │ │ Product │
+│    4    │ │    5    │ │    6    │
+└─────────┘ └─────────┘ └─────────┘
+
+With 1.5rem spacing between cards
+```
+Applied to the product grid container holding all product cards.
+
+## Product Card Styling
+
+```css
+.product-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Product card elements */
+```
+
+**What/Why**: Styles each product card with consistent elements and hover effect.
+
+**How/Where**:
+```
+Applied to <article class="product-card">:
+
+┌───────────────────────┐     On hover:   ┌───────────────────────┐
+│     [Product Image]   │                 │     [Product Image]   │
+│                       │                 │                       │
+│   Product Name        │       →        │   Product Name        │
+│   $99.99              │                 │   $99.99              │
+│   ★★★★☆              │     Rises       │   ★★★★☆              │
+│   Short description   │     up by 4px   │   Short description   │
+│                       │     with        │                       │
+│   [   Add to Cart   ] │     larger      │   [   Add to Cart   ] │
+└───────────────────────┘     shadow      └───────────────────────┘
+```
+Applied to each product card article and its children.
+
+## Footer Styling
+
+```css
+.footer {
+  background-color: var(--color-white);
+  padding: var(--spacing-8);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.footer__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-8);
+}
+
+/* Footer sections */
+```
+
+**What/Why**: Styles the footer with a 4-column grid layout for different sections.
+
+**How/Where**:
+```
+Applied to <footer class="footer"> and inner <div class="footer__container">:
+
+┌────────────────────────────────────────────────────────────────┐
+│                                                                │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌───────────┐ │
+│  │ Company    │  │ Contact    │  │ Follow Us  │  │Newsletter │ │
+│  │ About Us   │  │ 123 Main   │  │            │  │           │ │
+│  │ Careers    │  │ Street...  │  │ 📘 🐦 📸 💼 │  │ [Email  ] │ │
+│  │ Press      │  │            │  │            │  │ [Submit  ] │ │
+│  │ Blog       │  │            │  │            │  │           │ │
+│  └────────────┘  └────────────┘  └────────────┘  └───────────┘ │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+White background with rounded corners and shadow
+```
+Applied to the footer and its container with four equal sections.
+
+## Responsive Design
+
+```css
+@media (max-width: 1024px) {
+  .products__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer__container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    grid-template-areas:
+      "header"
+      "products"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+  .sidebar { display: none; }
+  /* More mobile adjustments */
+}
+```
+
+**What/Why**: Adjusts layout for different screen sizes.
+
+**How/Where**:
+```
+Desktop (>1024px):          Tablet (768-1024px):        Mobile (<768px):
+┌─────────────────┐         ┌─────────────────┐         ┌─────────────┐
+│     HEADER      │         │     HEADER      │         │   HEADER    │
+├────────┬────────┤         ├────────┬────────┤         ├─────────────┤
+│        │        │         │        │        │         │             │
+│SIDEBAR │PRODUCTS│         │SIDEBAR │PRODUCTS│         │  PRODUCTS   │
+│        │ 3 cols │         │        │ 2 cols │         │   1 col     │
+│        │        │         │        │        │         │             │
+├────────┴────────┤         ├────────┴────────┤         ├─────────────┤
+│     FOOTER      │         │     FOOTER      │         │   FOOTER    │
+│    (4 cols)     │         │    (2 cols)     │         │   (1 col)   │
+└─────────────────┘         └─────────────────┘         └─────────────┘
+```
+Applied at specific breakpoints to adjust layouts for different devices.
+
+## Focus and Active States
+
+```css
+button:focus,
+input:focus,
+a:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+button:active,
+a:active {
+  transform: scale(0.98);
+}
+```
+
+**What/Why**: Improves accessibility and interaction feedback.
+
+**How/Where**:
+```
+Normal button:   [     Button     ]
+Focused state:   [     Button     ] + blue outline 2px away from edge
+Active state:    [    Button    ] (slightly smaller when clicked)
+```
+Applied to all interactive elements (buttons, links, inputs) for accessibility and visual feedback.
+
+This CSS systematically implements a complete, responsive e-commerce interface with consistent visual language, clear hierarchy, and appropriate interactive states that adapt to different devices and user interactions.
