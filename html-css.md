@@ -397,11 +397,13 @@ Create the semantic HTML structure for an e-commerce product listing page with:
    - Cart icon with item counter
    - Login/account button
 
-2. A main content section with:
-   - A sidebar for filters including:
+
+  2.  sidebar for filters including:
      - Category checkboxes
      - Price range slider
      - Rating filter
+
+3. Main page
    - A product grid showing 6 product cards, each with:
      - Product image
      - Product title
@@ -410,7 +412,7 @@ Create the semantic HTML structure for an e-commerce product listing page with:
      - Short description
      - "Add to Cart" button
 
-3. A footer with:
+4. A footer with:
    - Company links
    - Contact information
    - Social media icons
