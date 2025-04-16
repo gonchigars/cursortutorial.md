@@ -502,3 +502,650 @@ After mastering these fundamentals, you might explore:
 By understanding these core CSS concepts—the box model, CSS Grid, Flexbox, CSS variables, and responsive design—you now have the knowledge to create professional, responsive web layouts. The e-commerce page you built demonstrates how these concepts work together to create a complete, functional design.
 
 Remember that CSS mastery comes with practice. Continue experimenting with different layouts and designs to reinforce your understanding of these fundamental concepts.
+```css```
+/* CSS Reset and Base Styles */
+/* Reset margins, padding, and set box-sizing */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* CSS Custom Properties (Variables) */
+:root {
+  /* Color Scheme */
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-secondary: #64748b;
+  --color-accent: #f59e0b;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+
+  /* Neutral Colors */
+  --color-white: #ffffff;
+  --color-gray-100: #f1f5f9;
+  --color-gray-200: #e2e8f0;
+  --color-gray-300: #cbd5e1;
+  --color-gray-400: #94a3b8;
+  --color-gray-500: #64748b;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1e293b;
+  --color-gray-900: #0f172a;
+  --color-black: #000000;
+
+  /* Typography */
+  --font-family-primary: "Inter", system-ui, -apple-system, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+/* Base Styles */
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-800);
+  background-color: var(--color-gray-100);
+}
+
+/* Layout Grid */
+.main {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidebar products"
+    "footer footer";
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  gap: var(--spacing-6);
+  padding: var(--spacing-6);
+}
+
+.header {
+  grid-area: header;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.products {
+  grid-area: products;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+/* Header Styles */
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-white);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.header__logo-image {
+  height: 40px;
+  width: auto;
+}
+
+.header__nav-list {
+  display: flex;
+  gap: var(--spacing-4);
+  list-style: none;
+}
+
+.header__nav-link {
+  text-decoration: none;
+  color: var(--color-gray-700);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.header__nav-link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-gray-100);
+}
+
+.header__actions {
+  display: flex;
+  gap: var(--spacing-4);
+  align-items: center;
+}
+
+.header__cart {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: var(--color-gray-100);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header__cart:hover {
+  background-color: var(--color-gray-200);
+}
+
+.header__account {
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header__account:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Sidebar Styles */
+.sidebar__filters {
+  background-color: var(--color-white);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.sidebar__title {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-6);
+  color: var(--color-gray-900);
+}
+
+.sidebar__filter-group {
+  margin-bottom: var(--spacing-6);
+}
+
+.sidebar__filter-title {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-4);
+  color: var(--color-gray-800);
+}
+
+.sidebar__category-list,
+.sidebar__rating-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.sidebar__category-item,
+.sidebar__rating-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+}
+
+.sidebar__price-slider {
+  width: 100%;
+  margin: var(--spacing-4) 0;
+}
+
+.sidebar__price-display {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-gray-600);
+}
+
+/* Products Grid */
+.products__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-6);
+}
+
+.product-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.product-card__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-4);
+}
+
+.product-card__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-2);
+}
+
+.product-card__price {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.product-card__rating {
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-2);
+}
+
+.product-card__description {
+  color: var(--color-gray-600);
+  margin-bottom: var(--spacing-4);
+}
+
+.product-card__add-to-cart {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.product-card__add-to-cart:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Footer Styles */
+.footer {
+  background-color: var(--color-white);
+  padding: var(--spacing-8);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.footer__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-8);
+}
+
+.footer__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-4);
+  color: var(--color-gray-900);
+}
+
+.footer__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.footer__link {
+  text-decoration: none;
+  color: var(--color-gray-600);
+  transition: color 0.2s ease;
+}
+
+.footer__link:hover {
+  color: var(--color-primary);
+}
+
+.footer__contact {
+  font-style: normal;
+}
+
+.footer__social {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+.footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-gray-100);
+  border-radius: var(--radius-full);
+  transition: all 0.2s ease;
+}
+
+.footer__social-link:hover {
+  background-color: var(--color-gray-200);
+  transform: translateY(-2px);
+}
+
+.footer__newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.footer__newsletter-input {
+  padding: var(--spacing-3);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+}
+
+.footer__newsletter-button {
+  padding: var(--spacing-3);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer__newsletter-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .products__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer__container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    grid-template-areas:
+      "header"
+      "products"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none; /* Will be shown as a collapsible menu in mobile */
+  }
+
+  .header__container {
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .header__nav-list {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .products__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Focus and Active States */
+button:focus,
+input:focus,
+a:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+button:active,
+a:active {
+  transform: scale(0.98);
+}
+
+```css```
+
+## Circle 1: High-Level Structure
+
+```
+┌─────────────────────────────────────────┐
+│               HEADER                    │
+├───────────────┬─────────────────────────┤
+│               │                         │
+│               │                         │
+│    SIDEBAR    │       PRODUCTS          │
+│  (Filters)    │        GRID             │
+│               │                         │
+│               │                         │
+├───────────────┴─────────────────────────┤
+│               FOOTER                    │
+└─────────────────────────────────────────┘
+```
+
+This CSS organizes an e-commerce website with a responsive grid layout, defining styling for all elements through a consistent design system.
+
+## Circle 2: CSS Foundation
+
+```
+CSS Variables
+┌─────────────────────────────────────┐
+│ :root {                             │
+│  ┌─────────────┐ ┌───────────────┐  │
+│  │  Colors     │ │  Typography   │  │
+│  └─────────────┘ └───────────────┘  │
+│  ┌─────────────┐ ┌───────────────┐  │
+│  │  Spacing    │ │  Shadows      │  │
+│  └─────────────┘ └───────────────┘  │
+│ }                                   │
+└─────────────────────────────────────┘
+```
+
+The CSS variables create a consistent visual language that's applied throughout the site, making it easy to maintain a cohesive look and feel.
+
+## Circle 3: Layout Structure
+
+```
+Desktop Layout                 Mobile Layout
+┌────────┬─────────┐           ┌─────────────┐
+│ HEADER │ HEADER  │           │   HEADER    │
+├────────┼─────────┤           ├─────────────┤
+│        │         │           │             │
+│SIDEBAR │PRODUCTS │           │  PRODUCTS   │
+│        │         │           │             │
+├────────┴─────────┤           ├─────────────┤
+│     FOOTER       │           │   FOOTER    │
+└──────────────────┘           └─────────────┘
+```
+
+The CSS uses grid layout to create a responsive page structure that adapts to different screen sizes, collapsing to a single column on mobile devices.
+
+## Circle 4: Header Component
+
+```
+┌─────────────────────────────────────────────────────┐
+│ ┌─────────┐    ┌───────────────────┐   ┌─────────┐  │
+│ │  LOGO   │    │     NAV LINKS     │   │ ACTIONS │  │
+│ └─────────┘    └───────────────────┘   └─────────┘  │
+└─────────────────────────────────────────────────────┘
+                      │
+         ┌────────────┴───────────┐
+         │ On mobile:             │
+         │ ┌─────────────────┐    │
+         │ │      LOGO       │    │
+         │ ├─────────────────┤    │
+         │ │    NAV LINKS    │    │
+         │ ├─────────────────┤    │
+         │ │     ACTIONS     │    │
+         │ └─────────────────┘    │
+         └────────────────────────┘
+```
+
+The header uses flexbox to arrange elements horizontally, with responsive behavior that stacks components vertically on smaller screens.
+
+## Circle 5: Sidebar Component
+
+```
+┌─────────────────────────┐
+│   FILTERS               │
+│ ┌─────────────────────┐ │
+│ │ Categories          │ │
+│ │ □ Category 1        │ │
+│ │ □ Category 2        │ │
+│ │ □ Category 3        │ │
+│ └─────────────────────┘ │
+│ ┌─────────────────────┐ │
+│ │ Price Range         │ │
+│ │ [==========|==]     │ │
+│ │ $0         $1000    │ │
+│ └─────────────────────┘ │
+│ ┌─────────────────────┐ │
+│ │ Ratings             │ │
+│ │ □ ★★★★★            │ │
+│ │ □ ★★★★☆            │ │
+│ │ □ ★★★☆☆            │ │
+│ └─────────────────────┘ │
+└─────────────────────────┘
+```
+
+The sidebar contains filter groups with interactive elements, styled as a card with consistent spacing and typography.
+
+## Circle 6: Products Grid
+
+```
+┌───────────┐ ┌───────────┐ ┌───────────┐
+│ ┌───────┐ │ │ ┌───────┐ │ │ ┌───────┐ │
+│ │ IMAGE │ │ │ │ IMAGE │ │ │ │ IMAGE │ │
+│ └───────┘ │ │ └───────┘ │ │ └───────┘ │
+│ Product A │ │ Product B │ │ Product C │
+│ $XX.XX    │ │ $XX.XX    │ │ $XX.XX    │
+│ ★★★★☆    │ │ ★★★★★    │ │ ★★★☆☆    │
+│           │ │           │ │           │
+│ [ADD TO CART] │ [ADD TO CART] │ [ADD TO CART] │
+└───────────┘ └───────────┘ └───────────┘
+
+Responsive Behavior:
+Desktop: 3 columns
+Tablet: 2 columns
+Mobile: 1 column
+```
+
+Products are displayed in a responsive grid that adjusts from 3 columns to 1 based on screen size, with each product card featuring consistent styling and hover effects.
+
+## Circle 7: Footer Component
+
+```
+┌───────────────────────────────────────────────────────────┐
+│ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐   │
+│ │ COMPANY   │ │ HELP      │ │ CONTACT   │ │ NEWSLETTER│   │
+│ │ About     │ │ FAQ       │ │ Address   │ │ ┌───────┐ │   │
+│ │ Careers   │ │ Shipping  │ │ Phone     │ │ │ Email │ │   │
+│ │ Blog      │ │ Returns   │ │ Email     │ │ └───────┘ │   │
+│ │           │ │           │ │           │ │ [SUBSCRIBE]│   │
+│ │ SOCIAL:   │ │           │ │           │ │           │   │
+│ │ ○ ○ ○ ○   │ │           │ │           │ │           │   │
+│ └───────────┘ └───────────┘ └───────────┘ └───────────┘   │
+└───────────────────────────────────────────────────────────┘
+```
+
+The footer is organized in a multi-column grid that collapses on smaller screens, featuring navigation links, contact information, social media links, and a newsletter signup.
+
+## Circle 8: Interactive States
+
+```
+Normal Button:   [      Button      ]
+Hover:           [      Button      ] + color change
+Focus:           [      Button      ] + outline
+Active:          [     Button     ] + slight scale down
+
+Normal Link:     Link Text
+Hover:           Link Text (color change)
+Focus:           Link Text + visible outline
+
+Product Card Normal:
+┌───────────┐
+│ Product   │
+└───────────┘
+
+Product Card Hover:
+    ┌───────────┐
+    │ Product   │
+    └───────────┘
+ + shadow + lifted up
+```
+
+The CSS defines consistent interactive states for all clickable elements, improving usability and accessibility with visual feedback.
+
+## Circle 9: Accessibility & Best Practices
+
+```
+Focus Indicators:
+┌──────────────────────┐   ┌──────────────────────┐
+│                      │   │                      │
+│   Unfocused Input    │   │    Focused Input     │
+│                      │   │                      │
+└──────────────────────┘   └──────────────────────┘
+                             ↑
+                       2px blue outline
+
+Responsive Behavior:
+     ┌─────────┐                      ┌───┐
+     │         │   screen width       │   │
+     │         │   ───────────>       │   │
+     │         │                      │   │
+     └─────────┘                      └───┘
+     Layout adapts                  Content
+     dynamically                    reflows
+```
+
+The stylesheet incorporates accessibility best practices like visible focus states, responsive text sizing, and appropriate color contrast ratios.
