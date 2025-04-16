@@ -502,7 +502,7 @@ After mastering these fundamentals, you might explore:
 By understanding these core CSS concepts—the box model, CSS Grid, Flexbox, CSS variables, and responsive design—you now have the knowledge to create professional, responsive web layouts. The e-commerce page you built demonstrates how these concepts work together to create a complete, functional design.
 
 Remember that CSS mastery comes with practice. Continue experimenting with different layouts and designs to reinforce your understanding of these fundamental concepts.
-```css```
+```
 /* CSS Reset and Base Styles */
 /* Reset margins, padding, and set box-sizing */
 *,
