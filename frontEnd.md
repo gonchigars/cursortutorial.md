@@ -78,6 +78,9 @@ This guide focuses on helping you **read and understand** web development code, 
 - `<head>` contains invisible setup information 
 - `<body>` contains everything you actually see
 
+**AI-Assisted Experiment:**
+Ask AI: "Create a basic HTML template with document structure. Then modify it to include different metadata tags in the head section, and explain what each one does."
+
 ### 2. Semantic HTML
 **Common semantic elements:**
 ```
@@ -117,6 +120,9 @@ NON-SEMANTIC HTML                   SEMANTIC HTML
 ```
 
 **Key tip:** When reading code, semantic elements tell you what the content's purpose is, while divs and spans tell you nothing until you see their CSS.
+
+**AI-Assisted Experiment:**
+Ask AI: "Create a webpage first using only divs and spans, then refactor it to use semantic HTML5 elements. Show both versions side by side and explain how they differ in terms of accessibility, SEO, and browser interpretation."
 
 ---
 
@@ -250,6 +256,9 @@ The text "Hello World" will be **red** because the ID selector has the highest s
 
 Understanding this helps you know which styles will actually appear on the page when reading code.
 
+**AI-Assisted Experiment:**
+Ask AI: "Create a webpage with nested elements that have conflicting CSS styles using different types of selectors. Then demonstrate how each style wins or loses based on specificity. Include a visual explanation of which rules apply to which elements and why."
+
 ### 2. Box Model
 
 **Every element is a box with these layers:**
@@ -289,6 +298,9 @@ Understanding this helps you know which styles will actually appear on the page 
   box-sizing: border-box; /* Makes width include padding & border */
 }
 ```
+
+**AI-Assisted Experiment:**
+Ask AI: "Create a set of nested boxes with different padding, margin, and border settings. Then create a modified version that uses box-sizing: border-box. Visually highlight the differences between the two approaches and explain how the total element size is calculated in each case."
 
 ### 3. Flexbox
 **Basic flex container setup:**
@@ -330,6 +342,9 @@ flex-direction: column
 - `align-items` controls alignment along the cross axis
 - `flex: 1` makes an item expand to fill available space
 
+**AI-Assisted Experiment:**
+Ask AI: "Create a flex container with multiple items and demonstrate how different flex-direction, justify-content, and align-items values affect the layout. Show me examples of common flex layouts: centered content, navigation bar, card layout, and holy grail layout. Include explanations of which properties control horizontal vs vertical alignment in each case."
+
 ---
 
 ## JavaScript Essentials
@@ -364,6 +379,9 @@ const fixed = "can't be reassigned";           // Block-scoped
 └─────────────────────────────────────────────────────┘
 ```
 
+**AI-Assisted Experiment:**
+Ask AI: "Create examples showing different variable declarations (var, let, const) and all JavaScript data types. Then demonstrate how primitive vs reference types behave differently when assigned to new variables or passed to functions. Show examples of type coercion and how to check types with typeof operator."
+
 ### 2. Functions
 
 **Function types compared:**
@@ -387,6 +405,9 @@ const doSomething = param => param + 1;
 - Arrow functions don't have their own `this` (they use parent's)
 - Functions with () => {} create new scope
 - Named vs. anonymous functions (named helps with debugging)
+
+**AI-Assisted Experiment:**
+Ask AI: "Create examples of different function types in JavaScript (regular, arrow, anonymous, immediately invoked) and show how they behave differently. Include examples demonstrating function hoisting, closure patterns, and how 'this' works differently in each function type. Also demonstrate higher-order functions that accept or return other functions."
 
 ### 3. DOM Manipulation
 
@@ -428,6 +449,9 @@ parentElement.appendChild(newDiv);
                       ▼     ▼
                    <h1>  <p>
 ```
+
+**AI-Assisted Experiment:**
+Ask AI: "Create a simple webpage, then demonstrate different ways to select and modify DOM elements with JavaScript. Show how to: select elements using different methods, modify text and HTML content, change styles and attributes, add and remove classes, create new elements, and handle DOM events. Include examples of both direct DOM manipulation and working with collections of elements."
 
 ### 4. Event Handling
 
@@ -819,30 +843,6 @@ AI tools like Cursor can significantly accelerate your learning by letting you f
 - Request implementations of the same UI with different state management approaches
 - Have AI demonstrate conditional rendering techniques for complex UIs
 
-### Learning Loop with AI
 
-```
-┌───────────────────────┐
-│                       │
-│   I don't understand  │
-│   [concept]           │──┐
-│                       │  │
-└───────────────────────┘  │
-                           ▼
-┌───────────────────────┐  │  ┌───────────────────────┐
-│                       │  │  │                       │
-│   Ask AI to explain   │◀─┘  │   Ask AI to create    │
-│   with examples       │     │   a test case         │
-│                       │     │                       │
-└─────────┬─────────────┘     └───────────┬───────────┘
-          │                               │
-          ▼                               ▼
-┌───────────────────────┐     ┌───────────────────────┐
-│                       │     │                       │
-│   Try to predict      │     │   Ask "what if"       │
-│   what code will do   │────▶│   questions to test   │
-│                       │     │   your understanding  │
-└───────────────────────┘     └───────────────────────┘
-```
 
 Remember: The goal isn't to have AI write code for you permanently, but to use it as a learning tool that accelerates your understanding by focusing on concepts rather than syntax details. Eventually, you'll develop an intuition for reading and understanding code across the entire web development stack.
